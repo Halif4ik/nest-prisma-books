@@ -5,11 +5,11 @@ import { IsInt, IsString, Length } from 'class-validator';
 
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {
 
-  @ApiProperty({example:'123456', description:'pass max len 50 chars'})
+  @ApiProperty({example:'1', description:'Integer'})
   @IsInt({message: 'It should be Integer'})
   readonly id:number;
 
-  @ApiProperty({example:'123456', description:'pass max len 50 chars'})
-  @IsString({message: 'It should be Integer'})
+  @ApiProperty({example:'some text', description:'pass max len 50 chars'})
+  @IsString({message: 'It should be String'})
   readonly text:string;
 }

@@ -8,10 +8,26 @@ datasource db {
 }
 
 /// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
-// model first {
 model Task {
-  id        Int      @default(autoincrement()) @id
-  name     String
+  id        Int      @id @default(autoincrement())
+  name      String
+  image     String?
   published Boolean? @default(false)
 }
-// }
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  books Book[]
+}
+
+model Book {
+  id           Int     @id @default(autoincrement())
+  bookName     String
+  describeBook String
+  image        String?
+  author       String?
+  userId       Int?
+  owner        User?   @relation(fields: [userId], references: [id])
+}

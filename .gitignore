@@ -1,7 +1,8 @@
 # compiled output
 /dist
 /node_modules
-
+public/upload
+.yarn
 # Logs
 logs
 *.log
@@ -12,7 +13,6 @@ yarn-error.log*
 lerna-debug.log*
 .yarn/cache
 # OS
-.DS_Store
 
 # Tests
 /coverage
@@ -33,3 +33,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.env
+.yarn
+/.yarn/
