@@ -1,48 +1,15 @@
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+# Test_Tasks Back End Books
+## Description:
+This project serves as the back end for a test task. It provides various API endpoints for managing sneakers, models,
+and brands. The application is built using NestJS, a powerful framework for building scalable and maintainable
+server-side applications.
+I used for check on this endpoint- http://localhost:3002/.
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ yarn install
+## Installation:
+Before running the application, create a .env file with the necessary environment variables, as specified in the sample
+file. Then, install the dependencies and start the application:
 ```
+yarn install
 
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+nest start --watch
 ```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Dmytro Hrymach](linkedin.com/in/dmitro-hrymach-7a9161185)
-- Website - [https://nestjs.com](http://grymachtest.ddns.net/)
-
-

@@ -1,13 +1,14 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {  }
+  constructor(private prisma: PrismaService) {
+  }
 
   async createUser(dto: CreateUserDto) {
-    return "user";
+    return 'user';
   }
 
   async getAllU() {
@@ -15,7 +16,6 @@ export class UsersService {
 
   async getUserByEmail(email: string) {
   }
-
 
 
 }

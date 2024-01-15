@@ -23,7 +23,7 @@ export class AuthService {
   async registration(userDto: CreateUserDto) {
     const candidate = "await this.userService.getUserByEmail(userDto.email)";
     console.log("registration-", userDto);
-    if (candidate) throw  new HttpException("User are present with this E-mail", HttpStatus.BAD_REQUEST);
+    if (candidate) throw new HttpException('User are present with this E-mail', HttpStatus.BAD_REQUEST);
     const hashPassword = await bcrypt.hash(userDto.password, 5);
     const user = await this.userService.createUser({ ...userDto, password: hashPassword });
     return this.generateToken(user);
