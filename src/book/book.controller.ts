@@ -25,7 +25,7 @@ export class BookController {
     constructor(private readonly bookService: BookService) {
     }
 
-//1.All Users can create new books for table if they are available or
+    //1.All Users can create new books for table if they are available or
     @Post()
     @ApiResponse({status: 200, type: BookClass})
     @ApiOperation({summary: 'Created Task'})
