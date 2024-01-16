@@ -8,10 +8,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   });
 
   const config = new DocumentBuilder()
-    .setTitle('First test')
-    .setDescription('Docs rest api ')
+    .setTitle('Books test application')
+    .setDescription('Documentation REST API')
     .setVersion('1.0.0')
-    .addTag('Dimon')
+    .addTag('Dmytro Grymach')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);

@@ -213,9 +213,6 @@
     `,
   });
   const HOST = 'http://localhost:3002/';
-  /*const socket = new WebSocket('ws://localhost:3003/');
-  const methodName = "getPosts";
-  const serviceName = "posts";*/
 
   const vue = new Vue({
     el: '#app',
@@ -268,22 +265,11 @@
         this.userNameValid = value.length > 0;
       },
     },
-    mounted: function() {
-      /*socket.addEventListener('open', async () => {
-          const packet = {name: serviceName, method: methodName, args: [this.currentPage, this.revert]};
-          socket.send(JSON.stringify(packet));
-      });
-      socket.addEventListener('message', async (event) => {
-          const data = JSON.parse(event.data);
-          this.tasks = data.items;
-          const packet = {name: serviceName, method: methodName, args: [this.currentPage, this.revert]};
-          socket.send(JSON.stringify(packet));
-      });*/
 
-    },
     methods: {
       showImg: function(url) {
-        url = this.host + 'static/' + url;
+        url = this.host + 'upload/' + url;
+        console.log('url-',url);
         const lightbox = document.getElementById('lightbox');
         const lightboxOverlay = document.getElementById('lightboxOverlay');
         const widthParent = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;

@@ -15,9 +15,10 @@ import {FileInterceptor} from '@nestjs/platform-express';
 import {Express} from 'express';
 import {BookClass} from './entities/book.entity';
 import * as process from 'process';
-import {Book} from '@prisma/client';
 import {GeneralResponse} from "./interface/generalResponse.interface";
 import {IBook} from "./interface/customResponces";
+import {PaginationBookDto} from "./dto/pagination-book.dto";
+
 
 @ApiTags('CRUD books')
 @Controller('books')
@@ -25,10 +26,11 @@ export class BookController {
     constructor(private readonly bookService: BookService) {
     }
 
-    //1.All Users can create new books for table if they are available or
+    //1.All Users can create new books for table if they are available or will create temp user-owner
+    //Endpoint: Post /api/books
     @Post()
     @ApiResponse({status: 200, type: BookClass})
-    @ApiOperation({summary: 'Created Task'})
+    @ApiOperation({summary: 'Created Book in database'})
     @UseInterceptors(FileInterceptor('image'))
     @UsePipes(new ValidationPipe({transform: true, whitelist: true}))
     async create(@Body() createBookDto: CreateBookDto, @UploadedFile(
@@ -44,9 +46,13 @@ export class BookController {
         return await this.bookService.create(createBookDto, [file]);
     }
 
+    //2.All Users can get books
+    //Endpoint: Get /api/books?page=1&revert=false
     @Get()
-    async findAll(@Query() query: { page: number, revert: string, limit: number, start: number }) {
-        const {page, revert, limit, start} = query;
-        return this.bookService.findAll(page, revert);
+    @ApiResponse({status: 200, type: BookClass})
+    @ApiOperation({summary: 'Get  all Books from database'})
+    @UsePipes(new ValidationPipe({transform: true, whitelist: true}))
+    async findAll(@Query() paginationBookDto: PaginationBookDto): Promise<GeneralResponse<any>> {
+        return this.bookService.findAll(paginationBookDto);
     }
 }
