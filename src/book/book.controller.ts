@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import {BookService} from './book.service';
 import {CreateBookDto} from './dto/create-book.dto';
-import {UpdateBookDto} from './dto/update-book.dto';
 import {ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {Express} from 'express';
@@ -21,7 +20,7 @@ import {PaginationBookDto} from "./dto/pagination-book.dto";
 
 
 @ApiTags('CRUD books')
-@Controller('books')
+@Controller('api/books')
 export class BookController {
     constructor(private readonly bookService: BookService) {
     }
@@ -47,7 +46,7 @@ export class BookController {
     }
 
     //2.All Users can get books
-    //Endpoint: Get /api/books?page=1&revert=false
+    //Endpoint: Get /api/books?page=1&revert=false&limit=2&start=2
     @Get()
     @ApiResponse({status: 200, type: BookClass})
     @ApiOperation({summary: 'Get  all Books from database'})

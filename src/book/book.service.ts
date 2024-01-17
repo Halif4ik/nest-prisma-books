@@ -16,7 +16,7 @@ export class BookService {
     private readonly logger: Logger = new Logger(BookService.name);
 
     constructor(private fileService: FileService, private userService: UsersService,
-                private prisma: PrismaService,private readonly configService: ConfigService) {
+                private prisma: PrismaService, private readonly configService: ConfigService) {
     }
 
     async create(@Body() createBookDto: CreateBookDto, images: Express.Multer.File[]): Promise<GeneralResponse<IBook>> {
@@ -42,15 +42,16 @@ export class BookService {
             'result': 'created',
         };
     }
-/*todo change responce for front and fix front */
+
+    /*todo change responce for front and fix front */
     async findAll(paginationBookDto: PaginationBookDto): Promise<any> {
-        const {page, revert} = paginationBookDto;
+        const {page, revert, start, limit} = paginationBookDto;
         const order = revert ? 'desc' : 'asc';
-        const startPage: number = page ? page : 1;
+        const lim: number = limit || +this.configService.get<number>('PAGE_PAGINATION');
 
         const books: Book[] = await this.prisma.book.findMany({
-            skip: (startPage - 1) * this.configService.get<number>('PAGE_PAGINATION'),
-            take: +this.configService.get<number>('PAGE_PAGINATION'),
+            skip: page ? (page - 1) * lim : start,
+            take: lim,
             orderBy: {
                 id: order,
             },
@@ -59,9 +60,9 @@ export class BookService {
 
         return {
             items: books,
-            loginOfCurrentUser: 'loginOfCurrentUser',
+            loginOfCurrentUser: 'tempUser',
             '_csrf': 'tokenSentToFront',
-            amountPage: Math.ceil(amountAll / this.configService.get<number>('PAGE_PAGINATION')) || 1,
+            amountPage: Math.ceil(amountAll / lim) || 1,
         };
     }
 

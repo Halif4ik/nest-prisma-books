@@ -30,7 +30,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   };
   app.enableCors(corsOptions);
 
-  app.setGlobalPrefix('api');
+  /*app.setGlobalPrefix('api');*/
 
   await app.listen(+process.env.PORT || 3002);
 }();

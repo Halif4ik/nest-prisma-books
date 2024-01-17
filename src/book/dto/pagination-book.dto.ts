@@ -8,6 +8,18 @@ export class PaginationBookDto {
     @Min(1)
     page: number;
 
+    @Transform(({value}) => isNaN(parseInt(value)) ? 1 : parseInt(value),)
+    @IsNumber({}, {message: 'Limit should be Number more than 0'})
+    @IsOptional()
+    @Min(1)
+    limit: number;
+
+    @Transform(({value}) => isNaN(parseInt(value)) ? -1 : parseInt(value),)
+    @IsNumber({}, {message: 'Start should be number'})
+    @IsOptional()
+    @Min(0)
+    start: number;
+
     @Transform(({value}) => {
             if (value.toString() === 'true') return true;
             else if (value.toString() === 'false') return false;
