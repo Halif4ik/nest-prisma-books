@@ -6,6 +6,8 @@ import {Author, Book, User} from '@prisma/client';
 import {GeneralResponse} from './interface/generalResponse.interface';
 import {IBook} from './interface/customResponces';
 import {UsersService} from "../users/users.service";
+import {PaginationBookDto} from "./dto/pagination-book.dto";
+import {ConfigService} from "@nestjs/config";
 
 const PAGE_PAGINATION: number = process.env.PAGE_PAGINATION ? parseInt(process.env.PAGE_PAGINATION) : 5;
 
@@ -13,13 +15,13 @@ const PAGE_PAGINATION: number = process.env.PAGE_PAGINATION ? parseInt(process.e
 export class BookService {
     private readonly logger: Logger = new Logger(BookService.name);
 
-    constructor(private fileService: FileService,private userService: UsersService,
-                private prisma: PrismaService) {
+    constructor(private fileService: FileService, private userService: UsersService,
+                private prisma: PrismaService, private readonly configService: ConfigService) {
     }
 
     async create(@Body() createBookDto: CreateBookDto, images: Express.Multer.File[]): Promise<GeneralResponse<IBook>> {
         const author: Author = await this.findOrCreateAuthor(createBookDto.author);
-        const user:User = await this.findOrCreateUser();
+        const user: User = await this.findOrCreateUser();
         const fileSaved: FileElementResponse = await this.fileService.createFile(images);
         const newBook: Book = await this.prisma.book.create({
             data: {
@@ -41,6 +43,29 @@ export class BookService {
         };
     }
 
+    /*todo change responce for front and fix front */
+    async findAll(paginationBookDto: PaginationBookDto): Promise<any> {
+        const {page, revert, start, limit} = paginationBookDto;
+        const order = revert ? 'desc' : 'asc';
+        const lim: number = limit || +this.configService.get<number>('PAGE_PAGINATION');
+
+        const books: Book[] = await this.prisma.book.findMany({
+            skip: page ? (page - 1) * lim : start,
+            take: lim,
+            orderBy: {
+                id: order,
+            },
+        });
+        const amountAll: number = await this.prisma.book.count();
+
+        return {
+            items: books,
+            loginOfCurrentUser: 'tempUser',
+            '_csrf': 'tokenSentToFront',
+            amountPage: Math.ceil(amountAll / lim) || 1,
+        };
+    }
+
     private async findOrCreateAuthor(author: string): Promise<Author> {
         return this.prisma.author.upsert({
             where: {
@@ -51,18 +76,6 @@ export class BookService {
             },
             update: {},
         });
-    }
-
-    async findAll(page: number, revert: string) {
-        const books = await this.prisma.book.findMany();
-        const amountAll: number = await this.prisma.book.count();
-
-        return {
-            items: books,
-            loginOfCurrentUser: 'loginOfCurrentUser',
-            '_csrf': 'tokenSentToFront',
-            amountPage: Math.ceil(amountAll / PAGE_PAGINATION) || 1,
-        };
     }
 
     private async findOrCreateUser(): Promise<User> {

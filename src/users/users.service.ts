@@ -1,5 +1,4 @@
-import {HttpException, HttpStatus, Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
-import {CreateUserDto} from './dto/create-user.dto';
+import {Injectable, Logger, OnApplicationBootstrap} from '@nestjs/common';
 import {PrismaService} from '../prisma.service';
 import {ConfigService} from "@nestjs/config";
 import {User} from "@prisma/client";

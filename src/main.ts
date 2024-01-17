@@ -8,10 +8,10 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   });
 
   const config = new DocumentBuilder()
-    .setTitle('First test')
-    .setDescription('Docs rest api ')
+    .setTitle('Books test application')
+    .setDescription('Documentation REST API')
     .setVersion('1.0.0')
-    .addTag('Dimon')
+    .addTag('Dmytro Grymach')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
@@ -24,13 +24,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
       'http://91.214.247.147',
       'http://127.0.0.1:3002',
       'http://localhost:3002',
+      'http://localhost:3001',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Enable cookies and authentication headers
   };
   app.enableCors(corsOptions);
 
-  app.setGlobalPrefix('api');
-
-  await app.listen(+process.env.PORT || 3002);
+  await app.listen(+process.env.PORT);
 }();
