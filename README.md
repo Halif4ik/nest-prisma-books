@@ -13,3 +13,10 @@ yarn install
 
 nest start --watch
 ```
+For run application in Docker Compose with database, changed in .env file POSTGRES_HOST=postgredb and
+DATABASE_URL=postgresql://root:111@postgredb:5432/temp?schema=public, and after execute next command:
+```
+docker compose up
+# or detached
+docker-compose up -d
+```
