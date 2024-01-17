@@ -20,7 +20,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   const corsOptions = {
     origin: [
       'http://grymachtest.ddns.net',
-      'https://www.google.com',
+      'https://books-5n87.onrender.com/',
       'http://91.214.247.147',
       'http://127.0.0.1:3002',
       'http://localhost:3002',
