@@ -231,39 +231,40 @@
     },
 
     methods: {
-      showImg: function(url) {
-        url = this.host + 'upload/' + url;
-        console.log('url-',url);
-        const lightbox = document.getElementById('lightbox');
-        const lightboxOverlay = document.getElementById('lightboxOverlay');
-        const widthParent = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        const heightParent = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        const imgLb = lightbox.querySelector('.lb-image');
-        const txtLb = lightbox.querySelector('.lb-txt');
+       showImg: function (url) {
+          url = this.host + 'upload/' + url;
+          const lightbox = document.getElementById('lightbox');
+          const lightboxOverlay = document.getElementById('lightboxOverlay');
+          const widthParent = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+          const heightParent = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+          const imgLb = lightbox.querySelector('.lb-image');
+          const txtLb = lightbox.querySelector('.lb-txt');
 
-        lightbox.style.setProperty('display', 'block', 'important');
-        lightboxOverlay.style.width = widthParent + 'px';
-        lightboxOverlay.style.height = heightParent + 'px';
-        // Show/hide the lightbox
-        if (lightbox.style.visibility === 'hidden' || !lightbox.style.visibility) {
-          if (url.includes('.txt')) this.linkInModalWindow = txtLb.data = url;
-          else this.linkInModalWindow = imgLb.src = url;
+          setTimeout(() => lightbox.style.setProperty('display', 'block', 'important'), 0);
+          lightboxOverlay.style.width = widthParent + 'px';
+          lightboxOverlay.style.height = heightParent + 'px';
+          // Show/hide the lightbox
+          if (lightbox.style.visibility === 'hidden' || !lightbox.style.visibility) {
+             if (url.includes('.txt')) this.linkInModalWindow = txtLb.data = url;
+             else this.linkInModalWindow = imgLb.src = url;
 
-          lightboxOverlay.style.visibility = lightbox.style.visibility = 'visible';
-          lightboxOverlay.style.top = `${window.scrollY}px`;
-          lightbox.style.top = `${window.scrollY + parseInt(lightbox.style.top)}px`;
-        } else {
-          lightboxOverlay.style.opacity = lightbox.style.opacity = '0';
-          this.linkInModalWindow = '';
-          setTimeout(() => {
-            lightboxOverlay.style.visibility = lightbox.style.visibility = 'hidden';
-            setTimeout(() => {
-              lightboxOverlay.style.opacity = '0.7';
-              lightbox.style.opacity = 'unset';
-            }, 500);
-          }, 800);
-        }
-      },
+             lightboxOverlay.style.visibility = lightbox.style.visibility = 'visible';
+             lightboxOverlay.style.top = `${window.scrollY}px`;
+             lightbox.style.top = `${window.scrollY + parseInt(lightbox.style.top)}px`;
+          } else {
+             lightboxOverlay.style.opacity = lightbox.style.opacity = '0';
+             this.linkInModalWindow = '';
+             setTimeout(() => {
+                lightboxOverlay.style.visibility = lightbox.style.visibility = 'hidden';
+                setTimeout(() => {
+                   lightboxOverlay.style.opacity = '0.7';
+                   lightbox.style.opacity = 'unset';
+                }, 500);
+             }, 800);
+          }
+       },
+
+
       getTasks: function(numberPage = 1, my = '', limit = 3, start = 0) {
         this.currentPage = numberPage;
         const revert = this.revert;
