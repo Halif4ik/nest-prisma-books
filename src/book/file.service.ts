@@ -11,7 +11,7 @@ export class FileService {
   async createFile(files: Express.Multer.File[]): Promise<FileElementResponse> {
     try {
       const filePath: string = path.join(__dirname, '../../public/upload');
-      await ensureDir(filePath);
+      const temp = await ensureDir(filePath);
       let resp: FileElementResponse = null;
       if (files) {
         const fileName: string = `${Date.now()}-${files[0].originalname}`;
