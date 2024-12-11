@@ -55,6 +55,7 @@ export class BookService {
             orderBy: {
                 id: order,
             },
+            include:{author:true},
         });
         const amountAll: number = await this.prisma.book.count();
 
